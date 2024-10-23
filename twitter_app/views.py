@@ -12,6 +12,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import login
 from .serializers import LoginSerializer
 from .serializers import RegisterSerializer
+from django.views import View
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -38,6 +40,9 @@ class LoginView(APIView):
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def get(self, request):
+        return render(request, 'login.html')
+
 class RegisterView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = RegisterSerializer(data=request.data)
@@ -46,9 +51,15 @@ class RegisterView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def get(self, request):
+        return render(request, 'register.html')
+
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         content = {'message': 'This is a protected view'}
         return Response(content)
+
+def home(request):
+    return HttpResponse("Welcome to the Home Page")
