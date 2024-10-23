@@ -1,5 +1,5 @@
 # twitter_app/views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from .models import Tweet, Follow
 from .serializers import TweetSerializer, FollowSerializer
@@ -33,6 +33,11 @@ class FollowViewSet(viewsets.ModelViewSet):
 class LoginView(View):
     def get(self, request):
         return render(request, 'login.html')
+
+    def post(self, request):
+        # Aqui você pode adicionar a lógica de autenticação
+        # Se a autenticação for bem-sucedida, redirecione para a página index
+        return redirect('index')
 
 class RegisterView(APIView):
     def post(self, request, *args, **kwargs):
