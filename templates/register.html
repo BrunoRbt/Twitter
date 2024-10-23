@@ -52,14 +52,18 @@
         button:hover {
             background-color: #0056b3;
         }
-        .login-link {
-            color: #00bfff;
+        .login-link, .home-link {
+            color: white;
             margin-top: 10px;
             display: block;
             text-decoration: none;
             font-size: 14px;
         }
-        .login-link:hover {
+        .login-link a, .home-link a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+        .login-link a:hover, .home-link a:hover {
             text-decoration: underline;
         }
         .error {
@@ -86,7 +90,7 @@
         <input type="password" id="confirm_password" name="confirm_password" required>
         <br>
         <button type="submit">Register</button>
-        <a class="login-link" href="{% url 'login' %}">Já tem uma conta? Faça login aqui</a>
+        <span class="login-link">Já tem uma conta? Faça login <a href="{% url 'login' %}">aqui</a></span>
     </form>
     <script>
         document.getElementById('registerForm').addEventListener('submit', function(event) {
