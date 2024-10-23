@@ -22,6 +22,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
         label {
             display: block;
@@ -51,13 +52,14 @@
         button:hover {
             background-color: #0056b3;
         }
-        .register-link {
-            color: #28a745;
+        .register-link, .home-link {
+            color: #00bfff;
             margin-top: 10px;
             display: block;
             text-decoration: none;
+            font-size: 14px;
         }
-        .register-link:hover {
+        .register-link:hover, .home-link:hover {
             text-decoration: underline;
         }
         .error {
@@ -78,8 +80,9 @@
         <input type="password" id="password" name="password" required>
         <br>
         <button type="submit">Login</button>
+        <a class="register-link" href="{% url 'register' %}">Não tem conta? Registre-se aqui</a>
+        <a class="home-link" href="/">Volte para a página inicial</a>
     </form>
-    <a class="register-link" href="{% url 'register' %}">Não tem conta? Registre-se aqui</a>
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             const username = document.getElementById('username').value;
