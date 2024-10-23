@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-htg#98rgx8(3yc&-r99g%9=*5m!vu-d^i2gy8-8z8vvz%u+v0@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'brunorbtwitter-b90d8d9b7c6b.herokuapp.com',
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+]
 
 
 # Application definition
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'twitter_app',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +63,7 @@ ROOT_URLCONF = 'twitter_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
