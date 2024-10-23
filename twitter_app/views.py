@@ -62,4 +62,46 @@ class ProtectedView(APIView):
         return Response(content)
 
 def home(request):
-    return HttpResponse("Welcome to the Home Page")
+    html_content = """
+    <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    margin-top: 50px;
+                    background-color: black;
+                    color: white;
+                }
+                p {
+                    font-size: 20px;
+                }
+                a {
+                    color: #007bff;
+                    text-decoration: none;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+                button {
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #0056b3;
+                }
+            </style>
+        </head>
+        <body>
+            <p>Esse é um Projeto feito por <a href="https://github.com/BrunoRbt">Bruno Roberto</a></p>
+            <button onclick="location.href='/login/'">Login</button>
+        </body>
+    </html>
+    """
+    return HttpResponse(html_content)
