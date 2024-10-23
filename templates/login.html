@@ -33,10 +33,15 @@
         input {
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
             border-radius: 5px;
             width: 100%;
             box-sizing: border-box;
+            background-color: #444;
+            color: white;
+        }
+        input::placeholder {
+            color: #bbb;
         }
         button {
             background-color: #007bff;
@@ -78,10 +83,10 @@
         {% csrf_token %}
         <div class="error" id="error"></div>
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
         <br>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
         <br>
         <button type="submit">Login</button>
         <span class="register-link">não tem conta? <a href="{% url 'register' %}">clique aqui</a></span>
