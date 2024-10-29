@@ -180,6 +180,34 @@
             background-color: #ff1a1a;
         }
 
+        .logout-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #ff1a1a;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .messages .message {
+            background-color: #1e90ff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
         /* Estilos Responsivos */
         @media (max-width: 768px) {
             .container {
@@ -236,6 +264,13 @@
                 {% csrf_token %}
                 <textarea id="tweet-content" name="content" rows="4" placeholder="Escreva seu tweet aqui..."></textarea>
             </form>
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             <div class="feed" id="feed">
                 <h2>Feed</h2>
                 <!-- Exibir tweets -->
@@ -243,10 +278,12 @@
                     <div class="tweet">
                         <strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}
                         <small>{{ tweet.created_at }}</small>
-                        <form method="post" action="{% url 'delete_tweet' tweet.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="delete-button">Excluir</button>
-                        </form>
+                        {% if tweet.user == user %}
+                            <form method="post" action="{% url 'delete_tweet' tweet.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Excluir</button>
+                            </form>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
