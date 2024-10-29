@@ -78,14 +78,7 @@ WSGI_APPLICATION = 'twitter_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd17k37t0lfqoo',
-        'USER': 'u64vur02hddgko',
-        'PASSWORD': 'p1be955f7817e31152b21e07d161b4b7efe9d7ea6b1198985bcd758054b1df1ce',
-        'HOST': 'cd27da2sn4hj7h.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
