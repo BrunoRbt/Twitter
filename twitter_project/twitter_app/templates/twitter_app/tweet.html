@@ -71,7 +71,7 @@
             margin: 0;
         }
 
-        .menu a {
+        .menu a, .menu button {
             display: block;
             padding: 10px;
             text-decoration: none;
@@ -79,9 +79,13 @@
             border-radius: 5px;
             margin-bottom: 5px;
             transition: background-color 0.3s ease;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
         }
 
-        .menu a.active, .menu a:hover {
+        .menu a.active, .menu a:hover, .menu button:hover {
             background-color: #292929;
         }
 
@@ -176,22 +180,6 @@
             background-color: #ff1a1a;
         }
 
-        .logout-button {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .logout-button:hover {
-            background-color: #ff1a1a;
-        }
-
         /* Estilos Responsivos */
         @media (max-width: 768px) {
             .container {
@@ -228,14 +216,14 @@
                         <li><a href="#">Notificações</a></li>
                         <li><a href="#">Mensagens</a></li>
                         <li><a href="#">Favoritos</a></li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-button">Sair da Conta</button>
+                            </form>
+                        </li>
                     </ul>
                 </nav>
-            </div>
-            <div>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">Sair da Conta</button>
-                </form>
             </div>
         </aside>
 
@@ -268,7 +256,7 @@
     <script>
         // JavaScript para o botão de logout
         document.addEventListener('DOMContentLoaded', function() {
-            const logoutButton = document.querySelector('#logout');
+            const logoutButton = document.querySelector('.logout-button');
 
             logoutButton.addEventListener('click', (event) => {
                 event.preventDefault();
