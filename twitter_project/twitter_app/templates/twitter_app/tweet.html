@@ -132,49 +132,35 @@
         <main class="content">
             <header class="header">
                 <h1>O que está acontecendo?</h1>
-                <button class="tweet-button">Tweetar</button>
+                <button class="tweet-button" onclick="document.getElementById('tweet-form').submit();">Tweetar</button>
             </header>
-            <form class="tweet-form">
-                <textarea id="tweet-content" rows="4" placeholder="Escreva seu tweet aqui..."></textarea>
+            <form id="tweet-form" class="tweet-form" method="post">
+                {% csrf_token %}
+                <textarea id="tweet-content" name="content" rows="4" placeholder="Escreva seu tweet aqui..."></textarea>
             </form>
             <div class="feed" id="feed">
                 <h2>Feed</h2>
-                <!-- Tweets will be loaded here -->
+                <!-- Exibir tweets -->
+                {% for tweet in tweets %}
+                    <div class="tweet">
+                        <strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}
+                        <div><small>{{ tweet.created_at }}</small></div>
+                    </div>
+                {% endfor %}
             </div>
         </main>
     </div>
 
     <script>
-        // JavaScript para o botão de tweetar
+        // JavaScript para o botão de logout
         document.addEventListener('DOMContentLoaded', function() {
-            const tweetButton = document.querySelector('.tweet-button');
-            const tweetContent = document.querySelector('#tweet-content');
-            const feed = document.querySelector('#feed');
             const logoutButton = document.querySelector('#logout');
 
-            tweetButton.addEventListener('click', () => {
-                const content = tweetContent.value.trim();
-                if (content) {
-                    // Criar um novo elemento de tweet
-                    const tweet = document.createElement('div');
-                    tweet.classList.add('tweet');
-                    tweet.textContent = content;
-
-                    // Adicionar o novo tweet ao feed
-                    feed.appendChild(tweet);
-
-                    // Limpar o campo de texto após publicar
-                    tweetContent.value = '';
-                } else {
-                    alert("Por favor, escreva algo para tweetar.");
-                }
-            });
-
             logoutButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    // Redirecionar para a página de login
-    window.location.href = "{% url 'login' %}";
-});
+                event.preventDefault();
+                // Redirecionar para a página de login
+                window.location.href = "{% url 'login' %}";
+            });
         });
     </script>
 </body>
