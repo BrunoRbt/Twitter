@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="""pt-BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,9 @@
             background-color: #121212;
             color: white;
             font-family: 'Arial', sans-serif;
-            display: flex;
             margin: 0;
+            padding: 0;
+            display: flex;
         }
 
         .container {
@@ -32,6 +33,11 @@
             justify-content: space-between;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
         }
 
         .close-button {
@@ -83,7 +89,7 @@
         .content {
             flex: 1;
             padding: 20px;
-            margin-left: 20px;
+            margin-left: 290px; /* Espaço para a barra lateral fixa */
             background-color: #1f1f1f;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -170,6 +176,22 @@
             background-color: #ff1a1a;
         }
 
+        .logout-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #ff1a1a;
+        }
+
         /* Estilos Responsivos */
         @media (max-width: 768px) {
             .container {
@@ -180,6 +202,8 @@
             .sidebar {
                 width: 100%;
                 margin-bottom: 20px;
+                position: relative;
+                height: auto;
             }
 
             .content {
@@ -208,7 +232,10 @@
                 </nav>
             </div>
             <div>
-                <a href="#" id="logout">Sair da Conta</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Sair da Conta</button>
+                </form>
             </div>
         </aside>
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="""pt-BR"></html>
+<html lang="pt-BR">
 <head>
-    <meta charset="""UTF-8">
-    <meta name="""viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
         body {
@@ -67,46 +67,17 @@
             color: #4a90e2;
             text-decoration: none;
         }
-        .messages {
-            margin-bottom: 20px;
-        }
-        .messages .message {
-            background-color: #1e90ff;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <div class="messages">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="message">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <form id="login-form" method="post">
+        <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Entrar</button>
         </form>
         <p>Não tem uma conta? Registre-se <a href="{% url 'register' %}">aqui</a>.</p>
     </div>
-    <script>
-        // JavaScript para redirecionar ao clicar em "Entrar"
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('login-form');
-
-            loginForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Redirecionar para a página de tweets
-                window.location.href = "{% url 'tweet' %}";
-            });
-        });
-    </script>
 </body>
 </html>

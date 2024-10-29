@@ -1,6 +1,6 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from rest_framework import generics
@@ -55,6 +55,10 @@ def delete_tweet_view(request, tweet_id):
         tweet.delete()
         return redirect('tweet')
     return redirect('tweet')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
