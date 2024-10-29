@@ -1,5 +1,5 @@
 # views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -40,13 +40,21 @@ def register_view(request):
 
 @login_required
 def tweet_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and 'content' in request.POST:
         content = request.POST.get('content')
         if content:
             Tweet.objects.create(user=request.user, content=content)
             return redirect('tweet')
     tweets = Tweet.objects.all().order_by('-created_at')
     return render(request, 'twitter_app/tweet.html', {'tweets': tweets})
+
+@login_required
+def delete_tweet_view(request, tweet_id):
+    tweet = get_object_or_404(Tweet, id=tweet_id, user=request.user)
+    if request.method == 'POST':
+        tweet.delete()
+        return redirect('tweet')
+    return redirect('tweet')
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()

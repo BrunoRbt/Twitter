@@ -104,6 +104,23 @@
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 10px;
+            position: relative;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #ff1a1a;
         }
     </style>
 </head>
@@ -145,6 +162,10 @@
                     <div class="tweet">
                         <strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}
                         <div><small>{{ tweet.created_at }}</small></div>
+                        <form method="post" action="{% url 'delete_tweet' tweet.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">Excluir</button>
+                        </form>
                     </div>
                 {% endfor %}
             </div>
