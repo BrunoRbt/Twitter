@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8)vt_7#u%z_i@%y^kvqwkh!=e_r43o=$-ovjgt7a&#rs0#9u#5'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-8)vt_7#u%z_i@%y^kvqwkh!=e_r43o=$-ovjgt7a&#rs0#9u#5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['brunorbtwitter-ff482d59bbee.herokuapp.com']
 
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'twitter_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://localhost:5432/twitter_db')
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
