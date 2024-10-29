@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,20 +72,50 @@
             cursor: pointer;
         }
 
+        .tweet-button:hover {
+            background-color: #1c7ed6;
+        }
+
         .feed {
             background-color: #1f1f1f;
             padding: 20px;
             border-radius: 10px;
+        }
+
+        .tweet-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .tweet-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #262626;
+            color: white;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        .tweet {
+            background-color: #262626;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
-            <div class="close-button">&times;</div> 
-            <div class="user-info">
-                <div class="profile-picture">0</div>
-                <div class="username">Usuário</div>
+            <div class="user">
+                <div class="close-button">&times;</div> 
+                <div class="user-info">
+                    <div class="profile-picture">0</div>
+                    <div class="username">Usuário</div>
+                </div>
             </div>
             <nav class="menu">
                 <ul>
@@ -94,7 +124,7 @@
                     <li><a href="#">Notificações</a></li>
                     <li><a href="#">Mensagens</a></li>
                     <li><a href="#">Favoritos</a></li>
-                    <li><a href="#">Sair da Conta</a></li>
+                    <li><a href="#" id="logout-button">Sair da Conta</a></li>
                 </ul>
             </nav>
         </aside>
@@ -104,8 +134,12 @@
                 <h1>O que está acontecendo?</h1>
                 <button class="tweet-button">Tweetar</button>
             </header>
-            <div class="feed">
+            <form class="tweet-form">
+                <textarea id="tweet-content" rows="4" placeholder="Escreva seu tweet aqui..."></textarea>
+            </form>
+            <div class="feed" id="feed">
                 <h2>Feed</h2>
+                <!-- Tweets will be loaded here -->
             </div>
         </main>
     </div>
@@ -114,10 +148,32 @@
         // JavaScript para o botão de tweetar
         document.addEventListener('DOMContentLoaded', function() {
             const tweetButton = document.querySelector('.tweet-button');
+            const tweetContent = document.querySelector('#tweet-content');
+            const feed = document.querySelector('#feed');
+            const logoutButton = document.querySelector('#logout-button');
 
             tweetButton.addEventListener('click', () => {
-                // Aqui você adicionaria a lógica para criar um novo tweet
-                alert("Botão Tweetar clicado!");
+                const content = tweetContent.value.trim();
+                if (content) {
+                    // Criar um novo elemento de tweet
+                    const tweet = document.createElement('div');
+                    tweet.classList.add('tweet');
+                    tweet.textContent = content;
+
+                    // Adicionar o novo tweet ao feed
+                    feed.appendChild(tweet);
+
+                    // Limpar o campo de texto após publicar
+                    tweetContent.value = '';
+                } else {
+                    alert("Por favor, escreva algo para tweetar.");
+                }
+            });
+
+            logoutButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                // Redirecionar para a página de login
+                window.location.href = "{% url 'login' %}";
             });
         });
     </script>
