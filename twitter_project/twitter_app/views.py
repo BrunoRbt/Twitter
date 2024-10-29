@@ -8,7 +8,7 @@ from .models import Tweet
 from .forms import CustomUserCreationForm
 
 def home(request):
-    return redirect('twitter_app/login.html')  # Redireciona para a view de login
+    return redirect('login')  # Redireciona para a view de login
 
 def login_view(request):
     if request.method == 'POST':
