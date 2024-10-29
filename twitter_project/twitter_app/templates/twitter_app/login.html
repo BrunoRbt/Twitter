@@ -72,22 +72,15 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form id="login-form" method="post" action="{% url 'login' %}">
+        <form id="login-form" method="post">
             {% csrf_token %}
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
+            {{ form.as_p }}
             <button type="submit">Entrar</button>
         </form>
         <p>Não tem uma conta? Registre-se <a href="{% url 'register' %}">aqui</a>.</p>
     </div>
     <script>
-        // JavaScript específico para a página de login
-        console.log('Login page loaded');
-
+        // JavaScript para redirecionar ao clicar em "Entrar"
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('login-form');
 

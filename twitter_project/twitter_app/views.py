@@ -1,19 +1,43 @@
 # views.py
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from rest_framework import generics
 from django.contrib.auth.models import User
 from .models import Tweet, Follow
 from .serializers import UserSerializer, TweetSerializer, FollowSerializer
+from .forms import CustomUserCreationForm
 
 def home(request):
     return render(request, 'twitter_app/feed.html')
 
 def login_view(request):
-    return render(request, 'twitter_app/login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('tweet')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'twitter_app/login.html', {'form': form})
 
 def register_view(request):
-    return render(request, 'twitter_app/register.html')
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('tweet')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'twitter_app/register.html', {'form': form})
 
 def tweet_view(request):
     return render(request, 'twitter_app/tweet.html')
