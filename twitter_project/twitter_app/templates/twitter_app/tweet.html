@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"></html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,8 +113,8 @@
             <div class="user">
                 <div class="close-button">&times;</div> 
                 <div class="user-info">
-                    <div class="profile-picture">0</div>
-                    <div class="username">Usuário</div>
+                    <div class="profile-picture"></div>
+                    <div class="username">{{ user.username }}</div>
                 </div>
             </div>
             <nav class="menu">
@@ -124,7 +124,7 @@
                     <li><a href="#">Notificações</a></li>
                     <li><a href="#">Mensagens</a></li>
                     <li><a href="#">Favoritos</a></li>
-                    <li><a href="#" id="logout-button">Sair da Conta</a></li>
+                    <li><a href="#" id="logout">Sair da Conta</a></li>
                 </ul>
             </nav>
         </aside>
@@ -150,7 +150,7 @@
             const tweetButton = document.querySelector('.tweet-button');
             const tweetContent = document.querySelector('#tweet-content');
             const feed = document.querySelector('#feed');
-            const logoutButton = document.querySelector('#logout-button');
+            const logoutButton = document.querySelector('#logout');
 
             tweetButton.addEventListener('click', () => {
                 const content = tweetContent.value.trim();
@@ -171,10 +171,10 @@
             });
 
             logoutButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                // Redirecionar para a página de login
-                window.location.href = "{% url 'login' %}";
-            });
+    event.preventDefault();
+    // Redirecionar para a página de login
+    window.location.href = "{% url 'login' %}";
+});
         });
     </script>
 </body>

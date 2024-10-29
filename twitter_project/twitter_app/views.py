@@ -2,11 +2,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 from rest_framework import generics
 from django.contrib.auth.models import User
 from .models import Tweet, Follow
 from .serializers import UserSerializer, TweetSerializer, FollowSerializer
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'twitter_app/feed.html')
@@ -30,17 +32,21 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('tweet')
+            messages.success(request, 'Cadastro feito com sucesso! Faça login para continuar.')
+            return redirect('login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'twitter_app/register.html', {'form': form})
 
+@login_required
 def tweet_view(request):
-    return render(request, 'twitter_app/tweet.html')
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            Tweet.objects.create(user=request.user, content=content)
+            return redirect('tweet')
+    tweets = Tweet.objects.all().order_by('-created_at')
+    return render(request, 'twitter_app/tweet.html', {'tweets': tweets})
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
