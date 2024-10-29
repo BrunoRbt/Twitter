@@ -1,26 +1,79 @@
-{% extends 'twitter_app/base.html' %}
-{% block title %}New Tweet{% endblock %}
-{% block css %}
-<style>
-    /* Estilos específicos para a página de novo tweet */
-    form {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-</style>
-{% endblock %}
-{% block content %}
-<h2>New Tweet</h2>
-<form method="post" action="{% url 'tweet' %}">
-    {% csrf_token %}
-    <label for="content">Content:</label>
-    <textarea id="content" name="content" maxlength="280" required></textarea>
-    <button type="submit">Tweet</button>
-</form>
-{% endblock %}
-{% block js %}
-<script>
-    // JavaScript específico para a página de novo tweet
-    console.log('New Tweet page loaded');
-</script>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Tweet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #1da1f2;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 1rem;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 0.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1c7ed6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Twitter Clone</h1>
+    </header>
+    <main>
+        <h2>Novo Tweet</h2>
+        <form method="post" action="{% url 'tweet' %}">
+            {% csrf_token %}
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" maxlength="280" required></textarea>
+            <button type="submit">Tweet</button>
+        </form>
+    </main>
+    <script>
+        // JavaScript específico para a página de novo tweet
+        console.log('New Tweet page loaded');
+    </script>
+</body>
+</html>

@@ -1,89 +1,93 @@
-{% block css %}
-<style>
-    body {
-        font-family: sans-serif;
-        background-color: #121212; /* Cor de fundo escura */
-        color: #fff; /* Cor do texto branca */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-    }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #121212; /* Cor de fundo escura */
+            color: #fff; /* Cor do texto branca */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    .container {
-        background-color: #1f1f1f; /* Cor de fundo do container ligeiramente mais clara */
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
-    }
+        .container {
+            background-color: #1f1f1f; /* Cor de fundo do container ligeiramente mais clara */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    input[type="text"],
-    input[type="password"],
-    input[type="email"] {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 5px;
-        border: 1px solid #333;
-        background-color: #262626; /* Fundo preto */
-        color: #fff; /* Texto branco */
-        outline: none;
-    }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #262626; /* Fundo preto */
+            color: #fff; /* Texto branco */
+            outline: none;
+        }
 
-    button[type="submit"] {
-        background-color: #007bff; /* Cor azul para o botão */
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-    }
+        button[type="submit"] {
+            background-color: #007bff; /* Cor azul para o botão */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
 
-    button[type="submit"]:hover {
-        background-color: #1c7ed6; /* Cor azul mais escura ao passar o mouse */
-    }
+        button[type="submit"]:hover {
+            background-color: #1c7ed6; /* Cor azul mais escura ao passar o mouse */
+        }
 
-    a {
-        color: #007bff; /* Cor azul para o link */
-    }
-</style>
-{% endblock %}
-{% block content %}
-<div class="container">
-    <h1>Registrar</h1>
-    <form method="post" action="{% url 'register' %}">
-        {% csrf_token %}
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <label for="password_confirmation">Password confirmation:</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" required>
-        </div>
-        <button type="submit">Registrar</button>
-    </form>
-    <p>Já tem uma conta? Faça login <a href="{% url 'login' %}">aqui</a></p>
-</div>
-{% endblock %}
-{% block js %}
-<script>
-    // JavaScript específico para a página de registro
-    console.log('Register page loaded');
-</script>
-{% endblock %}
+        a {
+            color: #007bff; /* Cor azul para o link */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar</h1>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="password_confirmation">Password confirmation:</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
+            </div>
+            <button type="submit">Registrar</button>
+        </form>
+        <p>Já tem uma conta? Faça login <a href="{% url 'login' %}">aqui</a>.</p>
+    </div>
+    <script>
+        // JavaScript específico para a página de registro
+        console.log('Register page loaded');
+    </script>
+</body>
+</html>
