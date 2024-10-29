@@ -3,67 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Tweet</title>
+    <title>Minha Rede Social</title>
     <style>
+        /* Estilos Globais */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        main {
-            padding: 1rem;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 0 auto;
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
             display: flex;
-            flex-direction: column;
+            margin: 0;
         }
 
-        label {
-            margin-top: 0.5rem;
-        }
-
-        textarea {
+        .container {
+            display: flex;
             width: 100%;
-            padding: 10px;
-            margin-top: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            resize: vertical;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+        /* Estilos da Barra Lateral */
+        .sidebar {
+            background-color: #1f1f1f;
+            width: 250px;
+            padding: 20px;
+        }
+
+        .close-button {
+            text-align: right;
             cursor: pointer;
-            margin-top: 1rem;
         }
 
-        button[type="submit"]:hover {
-            background-color: #1c7ed6;
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu a.active {
+            background-color: #292929;
+        }
+
+        /* Estilos do Conteúdo Principal */
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tweet-button {
+            background-color: #1d9bf0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .feed {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <main>
-        <h2>Novo Tweet</h2>
-        <form method="post" action="{% url 'tweet' %}">
-            {% csrf_token %}
-            <label for="content">Content:</label>
-            <textarea id="content" name="content" maxlength="280" required></textarea>
-            <button type="submit">Tweet</button>
-        </form>
-    </main>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user">
+                <div class="close-button">&times;</div> 
+                <div class="user-info">
+                    <div class="profile-picture">0</div>
+                    <div class="username">Usuário</div>
+                </div>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#" class="active">Início</a></li>
+                    <li><a href="#">Explorar</a></li>
+                    <li><a href="#">Notificações</a></li>
+                    <li><a href="#">Mensagens</a></li>
+                    <li><a href="#">Favoritos</a></li>
+                    <li><a href="#">Sair da Conta</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="header">
+                <h1>O que está acontecendo?</h1>
+                <button class="tweet-button">Tweetar</button>
+            </header>
+            <div class="feed">
+                <h2>Feed</h2>
+            </div>
+        </main>
+    </div>
+
     <script>
-        // JavaScript específico para a página de novo tweet
-        console.log('New Tweet page loaded');
+        // JavaScript para o botão de tweetar
+        document.addEventListener('DOMContentLoaded', function() {
+            const tweetButton = document.querySelector('.tweet-button');
+
+            tweetButton.addEventListener('click', () => {
+                // Aqui você adicionaria a lógica para criar um novo tweet
+                alert("Botão Tweetar clicado!");
+            });
+        });
     </script>
 </body>
 </html>
