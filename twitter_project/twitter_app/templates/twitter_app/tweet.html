@@ -1,0 +1,26 @@
+{% extends 'twitter_app/base.html' %}
+{% block title %}New Tweet{% endblock %}
+{% block css %}
+<style>
+    /* Estilos específicos para a página de novo tweet */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h2>New Tweet</h2>
+<form method="post" action="{% url 'tweet' %}">
+    {% csrf_token %}
+    <label for="content">Content:</label>
+    <textarea id="content" name="content" maxlength="280" required></textarea>
+    <button type="submit">Tweet</button>
+</form>
+{% endblock %}
+{% block js %}
+<script>
+    // JavaScript específico para a página de novo tweet
+    console.log('New Tweet page loaded');
+</script>
+{% endblock %}

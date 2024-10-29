@@ -1,0 +1,34 @@
+{% extends 'twitter_app/base.html' %}
+{% block title %}Feed{% endblock %}
+{% block css %}
+<style>
+    /* Estilos específicos para a página de feed */
+    #tweets {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .tweet {
+        background-color: white;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h2>Feed</h2>
+<div id="tweets">
+    <!-- Tweets will be loaded here via JavaScript -->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    // JavaScript específico para a página de feed
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Feed page loaded');
+        // Carregar tweets via AJAX ou Fetch API
+    });
+</script>
+{% endblock %}

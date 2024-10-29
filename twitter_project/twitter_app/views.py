@@ -1,12 +1,22 @@
 # views.py
+from django.shortcuts import render
+from django.http import HttpResponse
 from rest_framework import generics
 from django.contrib.auth.models import User
 from .models import Tweet, Follow
 from .serializers import UserSerializer, TweetSerializer, FollowSerializer
-from django.http import HttpResponse
 
 def home(request):
-    return HttpResponse("Bem-vindo ao Twitter Clone!")
+    return render(request, 'twitter_app/feed.html')
+
+def login_view(request):
+    return render(request, 'twitter_app/login.html')
+
+def register_view(request):
+    return render(request, 'twitter_app/register.html')
+
+def tweet_view(request):
+    return render(request, 'twitter_app/tweet.html')
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
