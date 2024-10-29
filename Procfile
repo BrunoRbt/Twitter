@@ -1,1 +1,1 @@
-web: gunicorn twitter_project.wsgi
+web: sh -c 'cd twitter_project && gunicorn twitter_project.wsgi'
