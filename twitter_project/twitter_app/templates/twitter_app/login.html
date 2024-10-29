@@ -1,24 +1,84 @@
-{% extends 'twitter_app/base.html' %}
-{% block title %}Login{% endblock %}
 {% block css %}
 <style>
-    /* Estilos específicos para a página de login */
-    form {
-        max-width: 300px;
-        margin: 0 auto;
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #121212;
+        font-family: Arial, sans-serif;
+    }
+    .login-container {
+        background-color: #1e1e1e;
+        padding: 20px 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        text-align: center;
+    }
+    .login-container h2 {
+        color: #f0f0f0;
+        margin-bottom: 20px;
+    }
+    .login-container label {
+        color: #d3d3d3;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        background-color: #262626;
+        color: #fff;
+        outline: none;
+    }
+    .login-container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #1e90ff;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .login-container button:hover {
+        background-color: #1c7ed6;
+    }
+    .login-container p {
+        color: #d3d3d3;
+        font-size: 14px;
+        margin-top: 15px;
+    }
+    .login-container p a {
+        color: #4a90e2;
+        text-decoration: none;
     }
 </style>
 {% endblock %}
 {% block content %}
-<h2>Login</h2>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Login</button>
-</form>
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Entrar</button>
+    </form>
+    <p>Não tem uma conta? Registre-se <a href="{% url 'register' %}">aqui</a>.</p>
+</div>
 {% endblock %}
 {% block js %}
 <script>
