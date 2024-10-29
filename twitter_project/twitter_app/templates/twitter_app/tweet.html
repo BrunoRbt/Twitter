@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="""pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
         body {
             background-color: #121212;
             color: white;
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             margin: 0;
         }
@@ -19,6 +19,7 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
 
         /* Estilos da Barra Lateral */
@@ -26,17 +27,42 @@
             background-color: #1f1f1f;
             width: 250px;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .close-button {
             text-align: right;
             cursor: pointer;
+            font-size: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .username {
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .menu ul {
             list-style: none;
             padding: 0;
-            margin: 20px 0;
+            margin: 0;
         }
 
         .menu a {
@@ -44,9 +70,12 @@
             padding: 10px;
             text-decoration: none;
             color: white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease;
         }
 
-        .menu a.active {
+        .menu a.active, .menu a:hover {
             background-color: #292929;
         }
 
@@ -54,6 +83,10 @@
         .content {
             flex: 1;
             padding: 20px;
+            margin-left: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .header {
@@ -70,16 +103,11 @@
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .tweet-button:hover {
             background-color: #1c7ed6;
-        }
-
-        .feed {
-            background-color: #1f1f1f;
-            padding: 20px;
-            border-radius: 10px;
         }
 
         .tweet-form {
@@ -99,12 +127,30 @@
             margin-bottom: 10px;
         }
 
+        .feed {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         .tweet {
             background-color: #262626;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tweet strong {
+            font-size: 16px;
+        }
+
+        .tweet small {
+            display: block;
+            margin-top: 5px;
+            color: #bbb;
         }
 
         .delete-button {
@@ -117,33 +163,53 @@
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .delete-button:hover {
             background-color: #ff1a1a;
+        }
+
+        /* Estilos Responsivos */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
-            <div class="user">
+            <div>
                 <div class="close-button">&times;</div> 
                 <div class="user-info">
                     <div class="profile-picture"></div>
                     <div class="username">{{ user.username }}</div>
                 </div>
+                <nav class="menu">
+                    <ul>
+                        <li><a href="#" class="active">Início</a></li>
+                        <li><a href="#">Explorar</a></li>
+                        <li><a href="#">Notificações</a></li>
+                        <li><a href="#">Mensagens</a></li>
+                        <li><a href="#">Favoritos</a></li>
+                    </ul>
+                </nav>
             </div>
-            <nav class="menu">
-                <ul>
-                    <li><a href="#" class="active">Início</a></li>
-                    <li><a href="#">Explorar</a></li>
-                    <li><a href="#">Notificações</a></li>
-                    <li><a href="#">Mensagens</a></li>
-                    <li><a href="#">Favoritos</a></li>
-                    <li><a href="#" id="logout">Sair da Conta</a></li>
-                </ul>
-            </nav>
+            <div>
+                <a href="#" id="logout">Sair da Conta</a>
+            </div>
         </aside>
 
         <main class="content">
@@ -161,7 +227,7 @@
                 {% for tweet in tweets %}
                     <div class="tweet">
                         <strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}
-                        <div><small>{{ tweet.created_at }}</small></div>
+                        <small>{{ tweet.created_at }}</small>
                         <form method="post" action="{% url 'delete_tweet' tweet.id %}">
                             {% csrf_token %}
                             <button type="submit" class="delete-button">Excluir</button>
