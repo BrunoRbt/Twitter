@@ -3,12 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from rest_framework import generics
-from django.contrib.auth.models import User
-from .models import Tweet, Follow
-from .serializers import UserSerializer, TweetSerializer, FollowSerializer
-from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from .models import Tweet
+from .forms import CustomUserCreationForm
 
 def home(request):
     return render(request, 'twitter_app/feed.html')
@@ -50,36 +47,15 @@ def tweet_view(request):
 
 @login_required
 def delete_tweet_view(request, tweet_id):
-    tweet = get_object_or_404(Tweet, id=tweet_id, user=request.user)
-    if request.method == 'POST':
-        tweet.delete()
-        return redirect('tweet')
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+    if tweet.user == request.user or request.user.email == 'bruno@rbttw':
+        if request.method == 'POST':
+            tweet.delete()
+            return redirect('tweet')
+    else:
+        messages.error(request, 'Você não tem permissão para excluir este tweet.')
     return redirect('tweet')
 
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class LoginView(generics.GenericAPIView):
-    # Implementar lógica de login com JWT
-    pass
-
-class FeedView(generics.ListAPIView):
-    serializer_class = TweetSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        following_users = Follow.objects.filter(follower=user).values_list('following', flat=True)
-        return Tweet.objects.filter(user__in=following_users).order_by('-created_at')
-
-class TweetCreateView(generics.CreateAPIView):
-    queryset = Tweet.objects.all()
-    serializer_class = TweetSerializer
-
-class FollowView(generics.CreateAPIView):
-    queryset = Follow.objects.all()
-    serializer_class = FollowSerializer
