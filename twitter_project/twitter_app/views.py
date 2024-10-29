@@ -8,7 +8,7 @@ from .models import Tweet
 from .forms import CustomUserCreationForm
 
 def home(request):
-    return render(request, 'home.html')  # Certifique-se de que o template 'home.html' existe
+    return render(request, 'twitter_app/home.html')  # Atualize o caminho do template
 
 def login_view(request):
     if request.method == 'POST':
